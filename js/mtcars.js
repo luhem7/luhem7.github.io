@@ -14,8 +14,6 @@ d3.csv("/data/mtcars.csv", function(d) {
         carb : +d.carb
     };
 }).then(function(cars_array) {
-    console.log(cars_array);
-    console.log(cars_array.columns);
 
     var raw_data_table = d3.select("#raw_data_table")
         .append("table");
@@ -38,28 +36,4 @@ d3.csv("/data/mtcars.csv", function(d) {
                 })
             })
     
-    // var table_body_rows = raw_data_table
-    //     .selectAll('tr')
-    //     .data(cars_array, function(d)).enter()
-    //         .append('tr')
-
-            // .selectAll('td')
-            // .data(function(d){})
-            // .data(function (d){
-            //      car_array = cars_array.columns.forEach(function (car_attr, index){
-            //         return cars_array[car_attr];
-            //     });
-            //     console.log(car_array);
-            // })
-        });
-
-            // .each(function(d, i){
-            //     d.text(function (d){})
-            //     console.log(d)
-            //     data.columns.forEach(function (table_header, index){
-            //         // console.log(d[table_header]);
-            //         // d3.select(this)
-            //             // .append('td')
-            //         //     .text(function (d){return 'here';});
-            //     });
-            // })
+});
