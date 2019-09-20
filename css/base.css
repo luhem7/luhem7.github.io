@@ -1,0 +1,27 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+}
+
+#main_content {
+    padding-left: 1cm;
+}
+
+.content_section {
+    padding-bottom: 5mm;
+}
+
+ul li {
+    display: block;
+    padding-bottom: 2mm;
+}
+
+h1 {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 700;
+}
+
+h2 {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 400;
+}
