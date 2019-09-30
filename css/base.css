@@ -25,3 +25,30 @@ h2 {
     font-family: 'Rubik', sans-serif;
     font-weight: 400;
 }
+
+/* Styling for SVG elements */
+
+text {
+    font-family : sans-serif;
+    fill: #000;
+    stroke: none;
+    font-size: 12px;
+    /* Attempting to get anti-aliasing in text */
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+}
+
+.dot {
+    fill: none;
+    stroke: none;
+    shape-rendering: geometricPrecision;
+    opacity: 0.8;
+}
+
