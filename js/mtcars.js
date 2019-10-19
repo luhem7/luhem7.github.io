@@ -1,8 +1,3 @@
-// add the tooltip area to the webpage
-var tooltip = d3.select("body").append("div")
-    .attr("class", "tooltip")
-    .style("opacity", 0);
-
 d3.csv("/data/mtcars.csv", function(d) {
     return {
         make: d['model'].split(' ')[0],
@@ -113,19 +108,7 @@ d3.csv("/data/mtcars.csv", function(d) {
         .attr("cy", yMap)
         .style("fill", function(d) { return color(cValue(d));})
             .append('text').text(function (d) {return d['hp'] + ', ' + d['mpg']; } );
-            // .style('opacity', 0)
-            // .on("mouseover", function(d) {
-            //     console.log(d['hp'] + ',' + d['mpg']);
-            //     d3.select(this).transition()
-            //         .style('opacity', 1);
-            // })
-            // .on("mouseout", function(d) {
-            //     console.log('Mouse out');
-            //     d3.select(this).transition()
-            //         .duration(500)
-            //         .style("opacity", 0);
-            // });
-    
+            
     // draw legend
     var legend = scatter_canvas.selectAll(".legend")
         .data(color.domain())
@@ -147,19 +130,4 @@ d3.csv("/data/mtcars.csv", function(d) {
         .attr("dy", ".35em")
         .style("text-anchor", "end")
         .text(function(d) { return d;})
-
-    
-    // DEBUGGING SECTION
-    if (false) {
-        var debug_svg = d3.select('#debug').append('svg');
-        debug_svg
-            .attr("width", 500)
-            .attr("height", 500)
-            .append("g")
-                .append('text')
-                .text('DEBUG')
-                .append('text')
-                    .text('DEBUG2')
-        ;
-    }
 });
