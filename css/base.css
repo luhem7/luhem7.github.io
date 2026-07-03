@@ -45,6 +45,15 @@ h2 {
     padding-left: 1em;
 }
 
+/* Footer styling */
+.site_footer {
+    margin-top: 2em;
+    padding-top: 1em;
+    border-top: 1px solid black;
+    color: #666;
+    font-size: 0.9em;
+}
+
 /* Styling for SVG elements */
 
 text {
