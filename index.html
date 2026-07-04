@@ -8,14 +8,14 @@
         <style>
             html, body {
                 margin: 0;
-                height: 100%;
+                min-height: 100%;
                 background: #090d0c;
                 color: #e8f0ea;
                 font-family: 'Roboto', sans-serif;
-                overflow: hidden;
             }
 
-            /* The Game of Life canvas sits behind everything, full-bleed. */
+            /* The Game of Life canvas is fixed behind everything, full-bleed,
+               so the identity column scrolls over a living background. */
             #gol {
                 position: fixed;
                 inset: 0;
@@ -25,8 +25,7 @@
                 z-index: 0;
             }
 
-            /* Centered identity card, floated above the simulation. */
-            .hero {
+            .page {
                 position: relative;
                 z-index: 1;
                 min-height: 100vh;
@@ -34,40 +33,71 @@
                 display: flex;
                 flex-direction: column;
                 align-items: center;
-                justify-content: center;
-                text-align: center;
-                padding: 2rem;
-                /* A soft dark scrim so text stays legible over the busy field. */
-                background: radial-gradient(
-                    ellipse at center,
-                    rgba(9, 13, 12, 0.72) 0%,
-                    rgba(9, 13, 12, 0.35) 40%,
-                    rgba(9, 13, 12, 0) 70%
-                );
+                padding: 3rem 1.5rem 1.5rem;
             }
 
-            .hero h1 {
+            /* Frosted card: keeps prose legible over the busy sim while still
+               letting the color glow through. */
+            .card {
+                width: 100%;
+                max-width: 640px;
+                box-sizing: border-box;
+                padding: 2.2rem 2.4rem;
+                border: 1px solid rgba(180, 230, 150, 0.18);
+                border-radius: 16px;
+                background: rgba(9, 13, 12, 0.62);
+                backdrop-filter: blur(3px);
+                -webkit-backdrop-filter: blur(3px);
+                box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+            }
+
+            h1 {
                 font-family: 'Rubik', sans-serif;
                 font-weight: 700;
-                font-size: clamp(2.2rem, 7vw, 4.5rem);
+                font-size: clamp(2rem, 6vw, 3.4rem);
                 margin: 0;
                 letter-spacing: 0.01em;
-                text-shadow: 0 2px 24px rgba(0, 0, 0, 0.9);
             }
 
-            /* Editable tagline — change this to taste, Boss. */
-            .hero .tagline {
-                margin: 0.75rem 0 2rem;
-                font-size: clamp(0.95rem, 2.4vw, 1.25rem);
+            .tagline {
+                margin: 0.6rem 0 0;
+                font-size: clamp(1rem, 2.4vw, 1.2rem);
                 color: #a9c4b3;
-                text-shadow: 0 1px 12px rgba(0, 0, 0, 0.9);
             }
+
+            /* The thesis caption: what the background actually means. */
+            .caption {
+                margin: 1.6rem 0;
+                padding-left: 1rem;
+                border-left: 3px solid hsl(80, 80%, 45%);
+                color: #bcd3c4;
+                line-height: 1.6;
+            }
+
+            .card p {
+                line-height: 1.7;
+                color: #d4e2d9;
+            }
+
+            .card strong {
+                color: hsl(85, 55%, 70%);
+                font-weight: 500;
+            }
+
+            .card a.inline {
+                color: hsl(80, 70%, 62%);
+                text-decoration: none;
+                border-bottom: 1px solid rgba(180, 230, 150, 0.35);
+            }
+            .card a.inline:hover { color: hsl(80, 88%, 68%); }
+
+            em { font-style: italic; color: #e2ece5; }
 
             .links {
                 display: flex;
                 flex-wrap: wrap;
-                gap: 0.75rem 1.25rem;
-                justify-content: center;
+                gap: 0.7rem 0.9rem;
+                margin-top: 2rem;
             }
 
             .links a {
@@ -80,22 +110,15 @@
                 background: rgba(9, 13, 12, 0.4);
                 transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
             }
-
             .links a:hover {
-                /* Chartreuse pull, straight from the logo's base hue. */
                 color: hsl(80, 88%, 62%);
                 border-color: hsl(80, 88%, 55%);
                 background: rgba(9, 13, 12, 0.7);
             }
 
             .site_footer {
-                position: fixed;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                z-index: 1;
-                text-align: center;
-                padding: 0.9rem;
+                margin-top: auto;
+                padding-top: 2rem;
                 font-size: 0.8rem;
                 color: #6f8a7b;
                 text-shadow: 0 1px 10px rgba(0, 0, 0, 0.9);
@@ -105,20 +128,33 @@
     <body>
         <canvas id="gol"></canvas>
 
-        <main class="hero">
-            <h1>Mehul Gangavelli</h1>
-            <p class="tagline">Software engineer &middot; Rust, data, and small web experiments.</p>
-            <nav class="links">
-                <a href="https://github.com/luhem7">GitHub</a>
-                <a href="https://crates.io/users/luhem7">crates.io</a>
-                <a href="https://github.com/luhem7/zettledown">zettledown</a>
-                <a href="/experiments/">experiments &rarr;</a>
-            </nav>
-        </main>
+        <div class="page">
+            <main class="card">
+                <h1>Mehul Gangavelli</h1>
+                <p class="tagline">Rust, simulations, and the question of how local rules turn into global behavior.</p>
 
-        <footer class="site_footer">
-            &copy; Mehul Gangavelli 2026
-        </footer>
+                <p class="caption">In the background is Conway's Game of Life. Just 3 simple rules, no plan, no orchestrator and it does all of that. Honestly, most of what I find interesting works this way: simple local rules, complicated emergent behavior.</p>
+
+                <p>I'm a Director of Analysis in Brokerage Architecture at Fidelity, based in North Carolina. Which is a fancy way of saying I think about how money actually moves under the hood (trades, settlement, all the plumbing nobody sees).</p>
+
+                <p>I did not follow a traditional path to get here. I started in QA, automated myself out of that job and into software, wandered through data engineering and data science (people analytics, then demand forecasting and logistics simulation over at Shopify), and eventually landed in architecture. There's no grand plan in that arc. I just follow whatever I'm curious about, and lately that's been building systems that allow for complex behavior without descending into chaos.</p>
+
+                <p><strong>Currently building:</strong> <a class="inline" href="https://github.com/luhem7/zettledown">zettledown</a>, a Zettelkasten-flavored Markdown superset (Markdown, plus cards). Also the small web experiments linked below.</p>
+
+                <p>Off-hours I'm usually deep in <em>Cosmere</em> lore, rebuilding a <em>Factorio</em> base I swore would be the last one, following an F1 season I have too many opinions about, or rock climbing. Also, I love tinkering with cellular automata and procedural generation, which is literally what you're looking at behind this text, and building AI agents that define themselves.</p>
+
+                <nav class="links">
+                    <a href="https://github.com/luhem7">GitHub</a>
+                    <a href="https://crates.io/users/luhem7">crates.io</a>
+                    <a href="https://github.com/luhem7/zettledown">zettledown</a>
+                    <a href="/experiments/">experiments &rarr;</a>
+                </nav>
+            </main>
+
+            <footer class="site_footer">
+                &copy; Mehul Gangavelli 2026
+            </footer>
+        </div>
 
         <script src="/js/gol-background.js?v=2"></script>
     </body>
