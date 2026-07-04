@@ -4,6 +4,22 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Mehul Gangavelli</title>
+        <meta name="description" content="Mehul Gangavelli — Rust, simulations, and how simple local rules turn into complex behavior. Director of Analysis in Brokerage Architecture at Fidelity.">
+
+        <!-- Open Graph / social link previews -->
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="https://luhem7.github.io/">
+        <meta property="og:title" content="Mehul Gangavelli">
+        <meta property="og:description" content="Rust, simulations, and how simple local rules turn into complex behavior.">
+        <meta property="og:image" content="https://luhem7.github.io/assets/logo.png">
+        <meta property="og:image:width" content="512">
+        <meta property="og:image:height" content="512">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="Mehul Gangavelli">
+        <meta name="twitter:description" content="Rust, simulations, and how simple local rules turn into complex behavior.">
+        <meta name="twitter:image" content="https://luhem7.github.io/assets/logo.png">
+
+        <link rel="icon" type="image/png" href="/assets/favicon.png">
         <link href="https://fonts.googleapis.com/css?family=Roboto|Rubik:400,500,700&display=swap" rel="stylesheet">
         <style>
             html, body {
@@ -49,6 +65,19 @@
                 backdrop-filter: blur(3px);
                 -webkit-backdrop-filter: blur(3px);
                 box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+            }
+
+            /* Logo beside the name: five dots that echo the sim's cells. */
+            .identity {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+            }
+            .identity .logo {
+                width: clamp(52px, 13vw, 78px);
+                height: auto;
+                flex-shrink: 0;
+                display: block;
             }
 
             h1 {
@@ -130,10 +159,13 @@
 
         <div class="page">
             <main class="card">
-                <h1>Mehul Gangavelli</h1>
+                <div class="identity">
+                    <img class="logo" src="/assets/logo.png" alt="Mehul's logo: five dots arranged like cells, echoing the Game of Life">
+                    <h1>Mehul Gangavelli</h1>
+                </div>
                 <p class="tagline">Rust, simulations, and the question of how local rules turn into global behavior.</p>
 
-                <p class="caption">In the background is Conway's Game of Life. Just 3 simple rules, no plan, no orchestrator and it does all of that. Honestly, most of what I find interesting works this way: simple local rules, complicated emergent behavior.</p>
+                <p class="caption">In the background is Conway's Game of Life. Four little rules (two if you write them as B3/S23), no plan, no orchestrator, and it does all of that. Honestly, most of what I find interesting works this way: simple local rules, complicated emergent behavior.</p>
 
                 <p>I'm a Director of Analysis in Brokerage Architecture at Fidelity, based in North Carolina. Which is a fancy way of saying I think about how money actually moves under the hood (trades, settlement, all the plumbing nobody sees).</p>
 
