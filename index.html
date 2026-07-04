@@ -1,41 +1,125 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
-        <title>Showcase</title>
-        <link href="https://fonts.googleapis.com/css?family=Roboto|Rubik:400,500,700&display=swap" rel="stylesheet"> 
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Mehul Gangavelli</title>
+        <link href="https://fonts.googleapis.com/css?family=Roboto|Rubik:400,500,700&display=swap" rel="stylesheet">
+        <style>
+            html, body {
+                margin: 0;
+                height: 100%;
+                background: #090d0c;
+                color: #e8f0ea;
+                font-family: 'Roboto', sans-serif;
+                overflow: hidden;
+            }
 
-        <script src="https://d3js.org/d3.v5.min.js"></script>
+            /* The Game of Life canvas sits behind everything, full-bleed. */
+            #gol {
+                position: fixed;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+                display: block;
+                z-index: 0;
+            }
 
-        <link rel="stylesheet" type="text/css" href="/css/base.css">
+            /* Centered identity card, floated above the simulation. */
+            .hero {
+                position: relative;
+                z-index: 1;
+                min-height: 100vh;
+                box-sizing: border-box;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                padding: 2rem;
+                /* A soft dark scrim so text stays legible over the busy field. */
+                background: radial-gradient(
+                    ellipse at center,
+                    rgba(9, 13, 12, 0.72) 0%,
+                    rgba(9, 13, 12, 0.35) 40%,
+                    rgba(9, 13, 12, 0) 70%
+                );
+            }
+
+            .hero h1 {
+                font-family: 'Rubik', sans-serif;
+                font-weight: 700;
+                font-size: clamp(2.2rem, 7vw, 4.5rem);
+                margin: 0;
+                letter-spacing: 0.01em;
+                text-shadow: 0 2px 24px rgba(0, 0, 0, 0.9);
+            }
+
+            /* Editable tagline — change this to taste, Boss. */
+            .hero .tagline {
+                margin: 0.75rem 0 2rem;
+                font-size: clamp(0.95rem, 2.4vw, 1.25rem);
+                color: #a9c4b3;
+                text-shadow: 0 1px 12px rgba(0, 0, 0, 0.9);
+            }
+
+            .links {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.75rem 1.25rem;
+                justify-content: center;
+            }
+
+            .links a {
+                color: #e8f0ea;
+                text-decoration: none;
+                font-weight: 500;
+                padding: 0.5rem 1rem;
+                border: 1px solid rgba(180, 230, 150, 0.35);
+                border-radius: 999px;
+                background: rgba(9, 13, 12, 0.4);
+                transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+            }
+
+            .links a:hover {
+                /* Chartreuse pull, straight from the logo's base hue. */
+                color: hsl(80, 88%, 62%);
+                border-color: hsl(80, 88%, 55%);
+                background: rgba(9, 13, 12, 0.7);
+            }
+
+            .site_footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                z-index: 1;
+                text-align: center;
+                padding: 0.9rem;
+                font-size: 0.8rem;
+                color: #6f8a7b;
+                text-shadow: 0 1px 10px rgba(0, 0, 0, 0.9);
+            }
+        </style>
     </head>
     <body>
-        <h1>Mehul demos stuff that he's learnt</h1>
-        <p>(But only if he remembers to update the github pages repo)</p>
-        <h2>
-            Table of contents
-        </h2>
-        <ol>
-            <li>
-                <span>D3.js</span>
-                <ol>
-                    <li><a href="/html/mtcars.html">Playing around with the MT Cars dataset</a></li>
-                    <li>
-                        <span>Playing around with the Zomato Bangalore Restaurants Dataset</span>
-                        <ol>
-                            <li><a href="/html/zomato/overview.html">Local Overview of the dataset</a></li>
-                        </ol>
-                    </li>
-                </ol>
-            </li>
-            <li>
-                <span>Comparison of debt payoff methods</span>
-                <ol>
-                    <li><a href="/html/debt-payoff-comparison.html">Simple simulation with static parameters</a></li>
-                </ol>
-            </li>
-        </ol>
+        <canvas id="gol"></canvas>
+
+        <main class="hero">
+            <h1>Mehul Gangavelli</h1>
+            <p class="tagline">Software engineer &middot; Rust, data, and small web experiments.</p>
+            <nav class="links">
+                <a href="https://github.com/luhem7">GitHub</a>
+                <a href="https://crates.io/users/luhem7">crates.io</a>
+                <a href="https://github.com/luhem7/zettledown">zettledown</a>
+                <a href="/experiments/">experiments &rarr;</a>
+            </nav>
+        </main>
+
         <footer class="site_footer">
             &copy; Mehul Gangavelli 2026
         </footer>
+
+        <script src="/js/gol-background.js?v=2"></script>
     </body>
 </html>
