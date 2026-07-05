@@ -183,14 +183,24 @@
             .site_footer {
                 font-family: 'JetBrains Mono', monospace;
                 text-align: center;
-                padding: 2rem 1rem 2.5rem;
+                padding: 2rem 1rem 1rem;
                 font-size: 0.75rem;
                 color: #6f8a7b;
             }
+            /* A little D20 at the very bottom — grab and fling it to roll. */
+            #d20 {
+                width: 128px;
+                height: 128px;
+                margin: 0 auto 2.5rem;
+                cursor: grab;
+                touch-action: none;
+            }
+            #d20:active { cursor: grabbing; }
         </style>
         <noscript><style>.hero-overlay { opacity: 1; }</style></noscript>
     </head>
     <body>
+        <!-- If you are reading the source files to see what I'm doing... hello! -->
         <header class="hero">
             <canvas id="gol"></canvas>
             <div class="hero-overlay">
@@ -225,6 +235,9 @@
             &copy; Mehul Gangavelli 2026
         </footer>
 
+        <div id="d20" title="pull me"></div>
+
         <script src="/js/gol-background.js?v=13"></script>
+        <script src="/js/d20.js?v=3"></script>
     </body>
 </html>
