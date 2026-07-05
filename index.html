@@ -96,8 +96,9 @@
             h1 {
                 font-family: 'JetBrains Mono', monospace;
                 font-weight: 700;
-                font-size: clamp(1.6rem, 5.4vw, 3rem);
+                font-size: clamp(3.2rem, 10.8vw, 6rem);
                 margin: 0;
+                min-width: 0;      /* allow the name to wrap instead of overflow */
                 letter-spacing: 0;
                 text-shadow: 0 2px 22px rgba(0, 0, 0, 0.95);
             }
@@ -224,6 +225,6 @@
             &copy; Mehul Gangavelli 2026
         </footer>
 
-        <script src="/js/gol-background.js?v=12"></script>
+        <script src="/js/gol-background.js?v=13"></script>
     </body>
 </html>
