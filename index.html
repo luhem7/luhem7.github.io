@@ -20,20 +20,28 @@
         <meta name="twitter:image" content="https://luhem7.github.io/assets/logo.png">
 
         <link rel="icon" type="image/png" href="/assets/favicon.png">
-        <link href="https://fonts.googleapis.com/css?family=Roboto|Rubik:400,500,700&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Source+Serif+4:wght@400;600&display=swap" rel="stylesheet">
         <style>
             html, body {
                 margin: 0;
-                min-height: 100%;
                 background: #090d0c;
                 color: #e8f0ea;
-                font-family: 'Roboto', sans-serif;
+                font-family: 'Source Serif 4', Georgia, serif;
             }
 
-            /* The Game of Life canvas is fixed behind everything, full-bleed,
-               so the identity column scrolls over a living background. */
+            /* --- Hero band: the sim lives only here, so the prose below is
+                   on a solid, fully legible background. --- */
+            .hero {
+                position: relative;
+                height: 58vh;
+                min-height: 340px;
+                overflow: hidden;
+            }
+
             #gol {
-                position: fixed;
+                position: absolute;
                 inset: 0;
                 width: 100%;
                 height: 100%;
@@ -41,153 +49,172 @@
                 z-index: 0;
             }
 
-            .page {
-                position: relative;
+            .hero-overlay {
+                position: absolute;
+                inset: 0;
                 z-index: 1;
-                min-height: 100vh;
-                box-sizing: border-box;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
-                padding: 3rem 1.5rem 1.5rem;
-            }
-
-            /* Frosted card: keeps prose legible over the busy sim while still
-               letting the color glow through. */
-            .card {
-                width: 100%;
-                max-width: 640px;
+                justify-content: center;
+                text-align: center;
+                padding: 1.5rem;
                 box-sizing: border-box;
-                padding: 2.2rem 2.4rem;
-                border: 1px solid rgba(180, 230, 150, 0.18);
-                border-radius: 16px;
-                background: rgba(9, 13, 12, 0.62);
-                backdrop-filter: blur(3px);
-                -webkit-backdrop-filter: blur(3px);
-                box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
             }
 
-            /* Logo beside the name: five dots that echo the sim's cells. */
+            /* Soft dark scrim so the name stays readable over its own churn. */
+            .hero-overlay::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                z-index: -1;
+                background: radial-gradient(
+                    ellipse at center,
+                    rgba(9, 13, 12, 0.78) 0%,
+                    rgba(9, 13, 12, 0.4) 45%,
+                    rgba(9, 13, 12, 0) 75%
+                );
+            }
+
             .identity {
                 display: flex;
                 align-items: center;
                 gap: 1rem;
+                max-width: 100%;
             }
             .identity .logo {
-                width: clamp(52px, 13vw, 78px);
+                width: clamp(52px, 12vw, 76px);
                 height: auto;
                 flex-shrink: 0;
                 display: block;
             }
 
             h1 {
-                font-family: 'Rubik', sans-serif;
+                font-family: 'JetBrains Mono', monospace;
                 font-weight: 700;
-                font-size: clamp(2rem, 6vw, 3.4rem);
+                font-size: clamp(1.6rem, 5.4vw, 3rem);
                 margin: 0;
-                letter-spacing: 0.01em;
+                letter-spacing: 0;
+                text-shadow: 0 2px 22px rgba(0, 0, 0, 0.95);
             }
 
             .tagline {
-                margin: 0.6rem 0 0;
-                font-size: clamp(1rem, 2.4vw, 1.2rem);
-                color: #a9c4b3;
+                font-family: 'JetBrains Mono', monospace;
+                font-weight: 400;
+                margin: 1rem 0 0;
+                max-width: 40ch;
+                font-size: clamp(0.82rem, 2.1vw, 1.02rem);
+                line-height: 1.5;
+                color: #b7cdbe;
+                text-shadow: 0 1px 12px rgba(0, 0, 0, 0.95);
             }
 
-            /* The thesis caption: what the background actually means. */
+            /* --- Content: solid background, serif prose. --- */
+            .content {
+                max-width: 640px;
+                margin: 0 auto;
+                padding: 2.75rem 1.5rem 1rem;
+            }
+
+            /* The thesis caption, set in mono so it reads as a code comment
+               annotating the running program just above it. */
             .caption {
-                margin: 1.6rem 0;
-                padding-left: 1rem;
-                border-left: 3px solid hsl(80, 80%, 45%);
+                font-family: 'JetBrains Mono', monospace;
+                font-size: 0.86rem;
+                line-height: 1.65;
                 color: #bcd3c4;
-                line-height: 1.6;
+                border-left: 3px solid hsl(80, 80%, 45%);
+                padding-left: 1rem;
+                margin: 0 0 2.25rem;
             }
 
-            .card p {
-                line-height: 1.7;
+            .content p {
+                line-height: 1.75;
+                font-size: 1.06rem;
                 color: #d4e2d9;
             }
 
-            .card strong {
+            .content strong {
                 color: hsl(85, 55%, 70%);
-                font-weight: 500;
+                font-weight: 600;
             }
 
-            .card a.inline {
+            a.inline {
                 color: hsl(80, 70%, 62%);
                 text-decoration: none;
                 border-bottom: 1px solid rgba(180, 230, 150, 0.35);
             }
-            .card a.inline:hover { color: hsl(80, 88%, 68%); }
+            a.inline:hover { color: hsl(80, 88%, 68%); }
 
             em { font-style: italic; color: #e2ece5; }
 
             .links {
+                font-family: 'JetBrains Mono', monospace;
                 display: flex;
                 flex-wrap: wrap;
                 gap: 0.7rem 0.9rem;
-                margin-top: 2rem;
+                margin-top: 2.25rem;
             }
-
             .links a {
                 color: #e8f0ea;
                 text-decoration: none;
                 font-weight: 500;
+                font-size: 0.9rem;
                 padding: 0.5rem 1rem;
                 border: 1px solid rgba(180, 230, 150, 0.35);
                 border-radius: 999px;
-                background: rgba(9, 13, 12, 0.4);
                 transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
             }
             .links a:hover {
                 color: hsl(80, 88%, 62%);
                 border-color: hsl(80, 88%, 55%);
-                background: rgba(9, 13, 12, 0.7);
+                background: rgba(180, 230, 150, 0.08);
             }
 
             .site_footer {
-                margin-top: auto;
-                padding-top: 2rem;
-                font-size: 0.8rem;
+                font-family: 'JetBrains Mono', monospace;
+                text-align: center;
+                padding: 2rem 1rem 2.5rem;
+                font-size: 0.75rem;
                 color: #6f8a7b;
-                text-shadow: 0 1px 10px rgba(0, 0, 0, 0.9);
             }
         </style>
     </head>
     <body>
-        <canvas id="gol"></canvas>
-
-        <div class="page">
-            <main class="card">
+        <header class="hero">
+            <canvas id="gol"></canvas>
+            <div class="hero-overlay">
                 <div class="identity">
                     <img class="logo" src="/assets/logo.png" alt="Mehul's logo: five dots arranged like cells, echoing the Game of Life">
                     <h1>Mehul Gangavelli</h1>
                 </div>
                 <p class="tagline">Rust, simulations, and the question of how local rules turn into global behavior.</p>
+            </div>
+        </header>
 
-                <p class="caption">In the background is Conway's Game of Life. Four little rules (two if you write them as B3/S23), no plan, no orchestrator, and it does all of that. Honestly, most of what I find interesting works this way: simple local rules, complicated emergent behavior.</p>
+        <main class="content">
+            <p class="caption">In the header above is Conway's Game of Life. Four little rules (two if you write them as B3/S23), no plan, no orchestrator, and it does all of that. Honestly, most of what I find interesting works this way: simple local rules, complicated emergent behavior.</p>
 
-                <p>I'm a Director of Analysis in Brokerage Architecture at Fidelity, based in North Carolina. Which is a fancy way of saying I think about how money actually moves under the hood (trades, settlement, all the plumbing nobody sees).</p>
+            <p>I'm a Director of Analysis in Brokerage Architecture at Fidelity, based in North Carolina. Which is a fancy way of saying I think about how money actually moves under the hood (trades, settlement, all the plumbing nobody sees).</p>
 
-                <p>I did not follow a traditional path to get here. I started in QA, automated myself out of that job and into software, wandered through data engineering and data science (people analytics, then demand forecasting and logistics simulation over at Shopify), and eventually landed in architecture. There's no grand plan in that arc. I just follow whatever I'm curious about, and lately that's been building systems that allow for complex behavior without descending into chaos.</p>
+            <p>I did not follow a traditional path to get here. I started in QA, automated myself out of that job and into software, wandered through data engineering and data science (people analytics, then demand forecasting and logistics simulation over at Shopify), and eventually landed in architecture. There's no grand plan in that arc. I just follow whatever I'm curious about, and lately that's been building systems that allow for complex behavior without descending into chaos.</p>
 
-                <p><strong>Currently building:</strong> <a class="inline" href="https://github.com/luhem7/zettledown">zettledown</a>, a Zettelkasten-flavored Markdown superset (Markdown, plus cards). Also the small web experiments linked below.</p>
+            <p><strong>Currently building:</strong> <a class="inline" href="https://github.com/luhem7/zettledown">zettledown</a>, a Zettelkasten-flavored Markdown superset (Markdown, plus cards). Also the small web experiments linked below.</p>
 
-                <p>Off-hours I'm usually deep in <em>Cosmere</em> lore, rebuilding a <em>Factorio</em> base I swore would be the last one, following an F1 season I have too many opinions about, or rock climbing. Also, I love tinkering with cellular automata and procedural generation, which is literally what you're looking at behind this text, and building AI agents that define themselves.</p>
+            <p>Off-hours I'm usually deep in <em>Cosmere</em> lore, rebuilding a <em>Factorio</em> base I swore would be the last one, following an F1 season I have too many opinions about, or rock climbing. Also, I love tinkering with cellular automata and procedural generation (the thing igniting up in the header), and building AI agents that define themselves.</p>
 
-                <nav class="links">
-                    <a href="https://github.com/luhem7">GitHub</a>
-                    <a href="https://crates.io/users/luhem7">crates.io</a>
-                    <a href="https://github.com/luhem7/zettledown">zettledown</a>
-                    <a href="/experiments/">experiments &rarr;</a>
-                </nav>
-            </main>
+            <nav class="links">
+                <a href="https://github.com/luhem7">GitHub</a>
+                <a href="https://crates.io/users/luhem7">crates.io</a>
+                <a href="https://github.com/luhem7/zettledown">zettledown</a>
+                <a href="/experiments/">experiments &rarr;</a>
+            </nav>
+        </main>
 
-            <footer class="site_footer">
-                &copy; Mehul Gangavelli 2026
-            </footer>
-        </div>
+        <footer class="site_footer">
+            &copy; Mehul Gangavelli 2026
+        </footer>
 
-        <script src="/js/gol-background.js?v=2"></script>
+        <script src="/js/gol-background.js?v=3"></script>
     </body>
 </html>
