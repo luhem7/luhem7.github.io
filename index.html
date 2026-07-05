@@ -60,6 +60,10 @@
                 text-align: center;
                 padding: 1.5rem;
                 box-sizing: border-box;
+                /* Starts invisible; the sim reveal fades it in (see gol-background.js).
+                   No-JS fallback below keeps the name visible if scripts are off. */
+                opacity: 0;
+                transition: opacity 0.6s ease;
             }
 
             /* Soft dark scrim so the name stays readable over its own churn. */
@@ -179,13 +183,14 @@
                 color: #6f8a7b;
             }
         </style>
+        <noscript><style>.hero-overlay { opacity: 1; }</style></noscript>
     </head>
     <body>
         <header class="hero">
             <canvas id="gol"></canvas>
             <div class="hero-overlay">
                 <div class="identity">
-                    <img class="logo" src="/assets/logo.png" alt="Mehul's logo: five dots arranged like cells, echoing the Game of Life">
+                    <img class="logo" src="/assets/logo.png" alt="Mehuls logo: a glider travelling to the top right">
                     <h1>Mehul Gangavelli</h1>
                 </div>
                 <p class="tagline">Rust, simulations, and the question of how local rules turn into global behavior.</p>
@@ -215,6 +220,6 @@
             &copy; Mehul Gangavelli 2026
         </footer>
 
-        <script src="/js/gol-background.js?v=3"></script>
+        <script src="/js/gol-background.js?v=11"></script>
     </body>
 </html>
