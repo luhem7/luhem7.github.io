@@ -87,9 +87,18 @@
         octx.textAlign = "center";
         octx.textBaseline = "middle";
         octx.fillStyle = "#fff";
-        octx.translate(r.left + r.width / 2 - cr.left, r.top + r.height / 2 - cr.top);
-        octx.scale(SEED_SCALE, SEED_SCALE);
-        octx.fillText(h1.textContent, 0, 0);
+        // Draw each name piece at its own laid-out position, so the seed matches
+        // the overlay whether it's one line (wide) or stacked (narrow).
+        var pieces = h1.querySelectorAll("span");
+        if (!pieces.length) pieces = [h1];
+        for (var p = 0; p < pieces.length; p++) {
+            var pr = pieces[p].getBoundingClientRect();
+            octx.save();
+            octx.translate(pr.left + pr.width / 2 - cr.left, pr.top + pr.height / 2 - cr.top);
+            octx.scale(SEED_SCALE, SEED_SCALE);
+            octx.fillText(pieces[p].textContent, 0, 0);
+            octx.restore();
+        }
 
         var data = octx.getImageData(0, 0, off.width, off.height).data;
         grid.fill(0);

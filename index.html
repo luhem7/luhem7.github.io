@@ -101,6 +101,10 @@
                 letter-spacing: 0;
                 text-shadow: 0 2px 22px rgba(0, 0, 0, 0.95);
             }
+            /* On narrow (mobile) widths, stack the last name under the first. */
+            @media (max-width: 600px) {
+                h1 span { display: block; line-height: 1.1; }
+            }
 
             .tagline {
                 font-family: 'JetBrains Mono', monospace;
@@ -191,7 +195,7 @@
             <div class="hero-overlay">
                 <div class="identity">
                     <img class="logo" src="/assets/logo.png" alt="Mehuls logo: a glider travelling to the top right">
-                    <h1>Mehul Gangavelli</h1>
+                    <h1><span>Mehul</span> <span>Gangavelli</span></h1>
                 </div>
                 <p class="tagline">Rust, simulations, and the question of how local rules turn into global behavior.</p>
             </div>
@@ -220,6 +224,6 @@
             &copy; Mehul Gangavelli 2026
         </footer>
 
-        <script src="/js/gol-background.js?v=11"></script>
+        <script src="/js/gol-background.js?v=12"></script>
     </body>
 </html>
